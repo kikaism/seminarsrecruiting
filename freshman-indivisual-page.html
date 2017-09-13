@@ -91,65 +91,53 @@
 
 
   <script>
-    var commentdata = {
-      "X/X オープンゼミ": [],
-      "X/Y オープンゼミ": [],
-      "Y/Y ランチ会": [],
-      "Y/Z ランチ会": [],
-      "Z/Z 合同説明会": [],
-    }
+    var getUrlParameter = function getUrlParameter(sParam) {
+      var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
 
-    var selectedevent
+      for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
 
-    var list = Object.keys(commentdata)
-    console.log("debug7", list)
-    for (var i = 0; i < list.length; i++) {
-      var events = list[i];
-      console.log("debug8", events)
+        if (sParameterName[0] === sParam) {
+          return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+      }
+    };
+
+    var id = getUrlParameter("id")
+
+    $.ajax({
+      url: "getcommentdata?id=" + id,
+    }).done(function (data) {
+      console.log(data)
+      var commentdata = JSON.parse(data)
+      showcomment(commentdata)
+    });
 
 
-      var div = $(`<li><a href="#">${events}</a></li>`)
+    function showcomment(commentdata) {
+      var selectedevent
 
-      $("#event-dropdown-1 ul").append(div)
-
-    }
-
-
-    $("#send-comment-btn").click(function (e) {
-      console.log("debug1", e)
-      var comment = $("#comment-form-1").val()
-      console.log("debug2", comment)
-
-      var div = $(`<div class="panel panel-default">
-      <div class="panel-body">ゆーざー１：${comment}</div>
-    </div>`)
-
-      $("#comment-list-1").append(div)
-
-      commentdata[selectedevent].push(comment)
-
-      $("#comment-form-1").val("")
-    })
-
-    $("#event-dropdown-1 li").click(function (e) {
-      console.log("debug3", e)
-      console.log("debug4", $(this).text())
-
-      $("#comment-form-0").show()
-
-      var text = $(this).text()
-      $("#event-dropdown-1 button").text(text)
-
-      selectedevent = text
-
-      $("#comment-list-1").empty()
-
-      var list = commentdata[text]
-      console.log("debug5", list)
+      var list = Object.keys(commentdata)
+      console.log("debug7", list)
       for (var i = 0; i < list.length; i++) {
-        var comment = list[i];
-        console.log("debug6", comment)
+        var events = list[i];
+        console.log("debug8", events)
 
+
+        var div = $(`<li><a href="#">${events}</a></li>`)
+
+        $("#event-dropdown-1 ul").append(div)
+
+      }
+
+
+      $("#send-comment-btn").click(function (e) {
+        console.log("debug1", e)
+        var comment = $("#comment-form-1").val()
+        console.log("debug2", comment)
 
         var div = $(`<div class="panel panel-default">
       <div class="panel-body">ゆーざー１：${comment}</div>
@@ -157,8 +145,40 @@
 
         $("#comment-list-1").append(div)
 
-      }
-    })
+        commentdata[selectedevent].push(comment)
+
+        $("#comment-form-1").val("")
+      })
+
+      $("#event-dropdown-1 li").click(function (e) {
+        console.log("debug3", e)
+        console.log("debug4", $(this).text())
+
+        $("#comment-form-0").show()
+
+        var text = $(this).text()
+        $("#event-dropdown-1 button").text(text)
+
+        selectedevent = text
+
+        $("#comment-list-1").empty()
+
+        var list = commentdata[text]
+        console.log("debug5", list)
+        for (var i = 0; i < list.length; i++) {
+          var comment = list[i];
+          console.log("debug6", comment)
+
+
+          var div = $(`<div class="panel panel-default">
+      <div class="panel-body">ゆーざー１：${comment}</div>
+    </div>`)
+
+          $("#comment-list-1").append(div)
+
+        }
+      })
+    }
   </script>
 
 
