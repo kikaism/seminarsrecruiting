@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>新入生個人ページ</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-inverse">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span> 
+                    </button>
+        <a class="navbar-brand" href="#">Recruit 2017</a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="freshmen-page.html">新入生</a></li>
+          <li><a href="#">スケジュール</a></li>
+          <li><a href="#">マイページ</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="jumbotron">
+      <h1>新入生１</h1>
+      <p>所属サークル（部活）・出身地・性別</p>
+
+      <div class="panel panel-default">
+        <div class="panel-body">
+
+          <div class="container">
+            <table class="table table">
+              <thead>
+                <tr>
+                  <th>オープンゼミ</th>
+                  <th>ランチ会</th>
+                  <th>その他</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>X</td>
+                  <td>Y</td>
+                  <td>Z</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="event-dropdown-1" class="dropdown">
+      <button class="btn btn-warning btn-block dropdown-toggle" type="button" data-toggle="dropdown">イベントを選んでください
+                    <span class="caret"></span></button>
+      <ul class="dropdown-menu" style="width:100%">
+
+
+      </ul>
+    </div>
+
+    <div id="comment-form-0" class="form-group" style="display:none;">
+      <label for="comment">Comment:</label>
+      <textarea id="comment-form-1" class="form-control" rows="5" id="comment"></textarea>
+      <button id="send-comment-btn" type="button" class="btn btn-warning">送信</button>
+    </div>
+
+    <div id="comment-list-1">
+
+    </div>
+  </div>
+
+
+
+  <script>
+    var commentdata = {
+      "X/X オープンゼミ": [],
+      "X/Y オープンゼミ": [],
+      "Y/Y ランチ会": [],
+      "Y/Z ランチ会": [],
+      "Z/Z 合同説明会": [],
+    }
+
+    var selectedevent
+
+    var list = Object.keys(commentdata)
+    console.log("debug7", list)
+    for (var i = 0; i < list.length; i++) {
+      var events = list[i];
+      console.log("debug8", events)
+
+
+      var div = $(`<li><a href="#">${events}</a></li>`)
+
+      $("#event-dropdown-1 ul").append(div)
+
+    }
+
+
+    $("#send-comment-btn").click(function (e) {
+      console.log("debug1", e)
+      var comment = $("#comment-form-1").val()
+      console.log("debug2", comment)
+
+      var div = $(`<div class="panel panel-default">
+      <div class="panel-body">ゆーざー１：${comment}</div>
+    </div>`)
+
+      $("#comment-list-1").append(div)
+
+      commentdata[selectedevent].push(comment)
+
+      $("#comment-form-1").val("")
+    })
+
+    $("#event-dropdown-1 li").click(function (e) {
+      console.log("debug3", e)
+      console.log("debug4", $(this).text())
+
+      $("#comment-form-0").show()
+
+      var text = $(this).text()
+      $("#event-dropdown-1 button").text(text)
+
+      selectedevent = text
+
+      $("#comment-list-1").empty()
+
+      var list = commentdata[text]
+      console.log("debug5", list)
+      for (var i = 0; i < list.length; i++) {
+        var comment = list[i];
+        console.log("debug6", comment)
+
+
+        var div = $(`<div class="panel panel-default">
+      <div class="panel-body">ゆーざー１：${comment}</div>
+    </div>`)
+
+        $("#comment-list-1").append(div)
+
+      }
+    })
+  </script>
+
+
+
+
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>新入生一覧</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-inverse">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span> 
+                    </button>
+        <a class="navbar-brand" href="#">Recruit 2017</a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#">新入生</a></li>
+          <li><a href="#">スケジュール</a></li>
+          <li><a href="#">マイページ</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="form-group">
+      <label for="addfreshman">新入生追加：</label>
+      <input type="text" class="form-control" rows="1" id="addfreshman">
+    </div>
+
+    <div class="form-group">
+      <label for="sel1">性別：</label>
+      <select class="form-control" id="sel1">
+      <option>男</option>
+      <option>女</option>
+    </select>
+      <button type="button" class="btn btn-warning">追加</button>
+    </div>
+
+
+    <div>
+      <label for="freshmen-list-0">新入生一覧：</label>
+      <div id="freshmen-list-0">
+        <ul class="list-group">
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    var freshmendata = {
+      "001": "新入生１",
+      "002": "新入生２",
+      "003": "新入生３",
+      "004": "新入生４",
+
+    }
+
+    var selectedfreshman
+
+    var list = Object.keys(freshmendata)
+    console.log("debug1", list)
+    for (var i = 0; i < list.length; i++) {
+      var id = list[i];
+      console.log("debug2", id)
+
+      var freshman = freshmendata[id]
+
+      var div = $(`<li class="list-group-item"><a href="freshman-indivisual-page.html?id=${id}">${freshman}</a></li>`)
+
+      $("#freshmen-list-0 ul").append(div)
+
+    }
+  </script>
+
+
+
+
+
+
+</body>
+
+</html>
